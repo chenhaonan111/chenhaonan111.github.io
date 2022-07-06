@@ -4,7 +4,7 @@ document
 
 document
   .querySelector("#banner")
-  .setAttribute('style', 'background-image: url(https://w.wallhaven.cc/full/y8/wallhaven-y8622k.jpg)')
+  .setAttribute('style', 'background-image: url("img/background.png")')
 
 document
   .querySelector("#banner .mask")
