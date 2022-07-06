@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="陈浩南">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Spring JDBC 框架负责所有的低层细节，从开始打开连 接，准备和执行 SQL 语句，处理异常，处理事务，到最后关闭连接。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring JDBC">
+<meta property="og:url" content="http://whoispower.cn/post/JDBC.html">
+<meta property="og:site_name" content="陈好难啊">
+<meta property="og:description" content="Spring JDBC 框架负责所有的低层细节，从开始打开连 接，准备和执行 SQL 语句，处理异常，处理事务，到最后关闭连接。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://whoispower.cn/img/JDBCimgs/Spring_JDBC.png">
+<meta property="article:published_time" content="2022-07-05T07:01:20.000Z">
+<meta property="article:modified_time" content="2022-07-05T14:52:20.616Z">
+<meta property="article:author" content="陈浩南">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://whoispower.cn/img/JDBCimgs/Spring_JDBC.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Spring JDBC - 陈好难啊</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"whoispower.cn","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>陈好难啊チェン・ハオナン</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring JDBC"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        陈浩南
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-05 03:01" pubdate>
+          2022年7月5日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring JDBC</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <pre><code class="hljs">*   在使用普通的 JDBC 数据库时，就会很麻烦的写不必要的代码来处理异常，打开和关闭数据库连接等。 
+*	Spring JDBC 框架负责所有的低层细节，从开始打开连 接，准备和执行 SQL 语句，处理异常，处理事务，到最后关闭连接。
+</code></pre>
+<p><img src="https://images5.alphacoders.com/124/thumbbig-1247695.webp" srcset="/img/loading.gif" lazyload>	</p>
+<pre><code class="hljs">Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发
+* 步骤：
+    1. 导入jar包
+    2. 创建JdbcTemplate对象。依赖于数据源DataSource
+        * JdbcTemplate template = new JdbcTemplate(ds);
+
+    3. 调用JdbcTemplate的方法来完成CRUD的操作
+        * update():执行DML语句。增、删、改语句
+        * queryForMap():查询结果将结果集封装为map集合，将列名作为key，将值作为value 将这条记录封装为一个map集合
+            * 注意：这个方法查询的结果集长度只能是1
+        * queryForList():查询结果将结果集封装为list集合
+            * 注意：将每一条记录封装为一个Map集合，再将Map集合装载到List集合中
+        * query():查询结果，将结果封装为JavaBean对象
+            * query的参数：RowMapper
+                * 一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
+                * new BeanPropertyRowMapper&lt;类型&gt;(类型.class)
+        * queryForObject：查询结果，将结果封装为对象
+            * 一般用于聚合函数的查询
+
+    ## 4. 练习：
+        * 需求：
+            1. 修改1号数据的 salary 为 10000
+            2. 添加一条记录
+            3. 删除刚才添加的记录
+            4. 查询id为1的记录，将其封装为Map集合
+            5. 查询所有记录，将其封装为List
+            6. 查询所有记录，将其封装为Emp对象的List集合
+            7. 查询总记录数
+
+        * 代码：
+            import cn.itcast.domain.Emp;
+            import cn.itcast.utils.JDBCUtils;
+            import org.junit.Test;
+            import org.springframework.jdbc.core.BeanPropertyRowMapper;
+            import org.springframework.jdbc.core.JdbcTemplate;
+            import org.springframework.jdbc.core.RowMapper;
+            
+            import java.sql.Date;
+            import java.sql.ResultSet;
+            import java.sql.SQLException;
+            import java.util.List;
+            import java.util.Map;
+            
+            public class JdbcTemplateDemo2 &#123;
+                //Junit单元测试，可以让方法独立执行				
+                //1. 获取JDBCTemplate对象
+                private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+</code></pre>
+<h2 id="1-修改1号数据的-salary-为-10000"><a href="#1-修改1号数据的-salary-为-10000" class="headerlink" title="1. 修改1号数据的 salary 为 10000"></a>1. 修改1号数据的 salary 为 10000</h2><pre><code class="hljs">                /**
+                 * 1. 修改1号数据的 salary 为 10000
+                 */
+                @Test
+                public void test1()&#123;
+                    //2. 定义sql
+                    String sql = &quot;update emp set salary = 10000 where id = 1001&quot;;
+                    //3. 执行sql
+                    int count = template.update(sql);
+                    System.out.println(count);
+                &#125;
+</code></pre>
+<h2 id="2-添加一条记录"><a href="#2-添加一条记录" class="headerlink" title="2. 添加一条记录"></a>2. 添加一条记录</h2><pre><code class="hljs">                /**
+                 * 2. 添加一条记录
+                 */
+                @Test
+                public void test2()&#123;
+                    String sql = &quot;insert into emp(id,ename,dept_id) values(?,?,?)&quot;;
+                    int count = template.update(sql, 1015, &quot;郭靖&quot;, 10);
+                    System.out.println(count);
+                &#125;
+</code></pre>
+<h2 id="3-删除刚才添加的记录"><a href="#3-删除刚才添加的记录" class="headerlink" title="3.删除刚才添加的记录"></a>3.删除刚才添加的记录</h2><pre><code class="hljs">                /**
+                 * 3.删除刚才添加的记录
+                 */
+                @Test
+                public void test3()&#123;
+                    String sql = &quot;delete from emp where id = ?&quot;;
+                    int count = template.update(sql, 1015);
+                    System.out.println(count);
+                &#125;
+</code></pre>
+<h2 id="4-查询id为1001的记录，将其封装为Map集合"><a href="#4-查询id为1001的记录，将其封装为Map集合" class="headerlink" title="4.查询id为1001的记录，将其封装为Map集合"></a>4.查询id为1001的记录，将其封装为Map集合</h2><pre><code class="hljs">                /**
+                 * 4.查询id为1001的记录，将其封装为Map集合
+                 * 注意：这个方法查询的结果集长度只能是1
+                 */
+                @Test
+                public void test4()&#123;
+                    String sql = &quot;select * from emp where id = ? or id = ?&quot;;
+                    Map&lt;String, Object&gt; map = template.queryForMap(sql, 1001,1002);
+                    System.out.println(map);
+                    //&#123;id=1001, ename=孙悟空, job_id=4, mgr=1004, joindate=2000-12-17, salary=10000.00, bonus=null, dept_id=20&#125;				
+                &#125;
+</code></pre>
+<h2 id="5-查询所有记录，将其封装为List"><a href="#5-查询所有记录，将其封装为List" class="headerlink" title="5. 查询所有记录，将其封装为List"></a>5. 查询所有记录，将其封装为List</h2><pre><code class="hljs">                /**
+                 * 5. 查询所有记录，将其封装为List
+                 */
+                @Test
+                public void test5()&#123;
+                    String sql = &quot;select * from emp&quot;;
+                    List&lt;Map&lt;String, Object&gt;&gt; list = template.queryForList(sql);
+            
+                    for (Map&lt;String, Object&gt; stringObjectMap : list) &#123;
+                        System.out.println(stringObjectMap);
+                    &#125;
+                &#125;
+</code></pre>
+<p><img src="https://images3.alphacoders.com/123/thumbbig-1231243.webp" srcset="/img/loading.gif" lazyload>	</p>
+<h2 id="6-1-查询所有记录，将其封装为Emp对象的List集合"><a href="#6-1-查询所有记录，将其封装为Emp对象的List集合" class="headerlink" title="6.1 查询所有记录，将其封装为Emp对象的List集合"></a>6.1 查询所有记录，将其封装为Emp对象的List集合</h2><pre><code class="hljs">                /**
+                 * 6.1 查询所有记录，将其封装为Emp对象的List集合
+                 */
+                @Test
+                public void test6()&#123;
+                    String sql = &quot;select * from emp&quot;;
+                    List&lt;Emp&gt; list = template.query(sql, new RowMapper&lt;Emp&gt;() &#123;
+            
+                        @Override
+                        public Emp mapRow(ResultSet rs, int i) throws SQLException &#123;
+                            Emp emp = new Emp();
+                            int id = rs.getInt(&quot;id&quot;);
+                            String ename = rs.getString(&quot;ename&quot;);
+                            int job_id = rs.getInt(&quot;job_id&quot;);
+                            int mgr = rs.getInt(&quot;mgr&quot;);
+                            Date joindate = rs.getDate(&quot;joindate&quot;);
+                            double salary = rs.getDouble(&quot;salary&quot;);
+                            double bonus = rs.getDouble(&quot;bonus&quot;);
+                            int dept_id = rs.getInt(&quot;dept_id&quot;);
+            
+                            emp.setId(id);
+                            emp.setEname(ename);
+                            emp.setJob_id(job_id);
+                            emp.setMgr(mgr);
+                            emp.setJoindate(joindate);
+                            emp.setSalary(salary);
+                            emp.setBonus(bonus);
+                            emp.setDept_id(dept_id);
+            
+                            return emp;
+                        &#125;
+                    &#125;);								
+                    for (Emp emp : list) &#123;
+                        System.out.println(emp);
+                    &#125;
+                &#125;
+</code></pre>
+<h2 id="6-2-查询所有记录，将其封装为Emp对象的List集合"><a href="#6-2-查询所有记录，将其封装为Emp对象的List集合" class="headerlink" title="6.2 查询所有记录，将其封装为Emp对象的List集合"></a>6.2 查询所有记录，将其封装为Emp对象的List集合</h2><pre><code class="hljs">                /**
+                 * 6.2 查询所有记录，将其封装为Emp对象的List集合
+                 */
+                @Test
+                public void test6_2()&#123;
+                    String sql = &quot;select * from emp&quot;;
+                    List&lt;Emp&gt; list = template.query(sql, new BeanPropertyRowMapper&lt;Emp&gt;(Emp.class));
+                    for (Emp emp : list) &#123;
+                        System.out.println(emp);
+                    &#125;
+                &#125;	
+</code></pre>
+<h2 id="7-查询总记录数"><a href="#7-查询总记录数" class="headerlink" title="7. 查询总记录数"></a>7. 查询总记录数</h2><pre><code class="hljs">                 /**
+                 * 7. 查询总记录数
+                 */
+                @Test
+                public void test7()&#123;
+                    String sql = &quot;select count(id) from emp&quot;;
+                    Long total = template.queryForObject(sql, Long.class);
+                    System.out.println(total);
+                &#125;				
+            &#125;
+</code></pre>
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC81Njc0OC8zMzIxMg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+    </script>
+<script> 为正常使用来必力评论功能请激活JavaScript</script>
+</div>
+<!-- City版安装代码已完成 -->
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaWeb/" class="category-chain-item">JavaWeb</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java/">#java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring JDBC</div>
+      <div>http://whoispower.cn/post/JDBC.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>陈浩南</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年7月5日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/JDBC_tool_Class.html" title="JDBC_tool_Class">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JDBC_tool_Class</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>陈好难啊💚チェン・ハオナン</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Mr Wolf</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+
+  <script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+  <script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<!-- 雪花特效 -->
+<!-- <script type="text/javascript" src="\js\snow.js"></script>-->
+
+<!-- 页面点击小红心 -->
+<!--<script type="text/javascript" src="/js/love.js"></script>-->
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 加入APlayer音乐播放器 -->
+<!--<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>-->
+
+	<!-- require APlayer -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+	<!-- require MetingJS -->
+	<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+	</head>
+	<body>
+<meting-js 
+	server="netease" 
+	type="song" 
+	id="1456659704"
+	fixed="true" 
+	autoplay="true"
+	loop="all"
+	order="random"
+	preload="auto"
+	list-folded="ture"
+	list-max-height="500px"
+	lrc-type="1">
+</meting-js>
+	</body>
+</html>
+
+
+</body>
+</html>
