@@ -4,7 +4,7 @@ document
 
 document
   .querySelector("#banner")
-  .setAttribute('style', 'background-image: url("img/background.png")')
+  .setAttribute('style', 'background-image: url()')
 
 document
   .querySelector("#banner .mask")
