@@ -1,0 +1,1288 @@
+<!DOCTYPE html><html lang="zh-CN" data-default-color-scheme="light"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png"><link rel="icon" href="/img/fluid.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#000000"><meta name="author" content="陈浩南"><meta name="keywords" content=""><meta name="description" content="MYSQL通用语法:1.MYSQL英文: Structured Query Language      简称 SQL  2.MySQL数据库的SQL语句不分大小写，关键字建议用大写  3.注释     - 单行注释: -- 注释内容 或 #注释内容(mysql特有)     - 多行注释: &#x2F;*注释*&#x2F;  2.0分类:     1.DDL(Data Dafinition Language)数据定义"><meta property="og:type" content="article"><meta property="og:title" content="Mysql_note"><meta property="og:url" content="http://whoispower.cn/post/Mysql-note.html"><meta property="og:site_name" content="陈好难啊"><meta property="og:description" content="MYSQL通用语法:1.MYSQL英文: Structured Query Language      简称 SQL  2.MySQL数据库的SQL语句不分大小写，关键字建议用大写  3.注释     - 单行注释: -- 注释内容 或 #注释内容(mysql特有)     - 多行注释: &#x2F;*注释*&#x2F;  2.0分类:     1.DDL(Data Dafinition Language)数据定义"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2022-07-07T05:31:05.000Z"><meta property="article:modified_time" content="2022-07-07T06:17:36.084Z"><meta property="article:author" content="陈浩南"><meta name="twitter:card" content="summary_large_image"><meta name="referrer" content="no-referrer-when-downgrade"><title>Mysql_note - 陈好难啊</title><link rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css"><link rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css"><link rel="stylesheet" href="/css/main.css"><link id="highlight-css" rel="stylesheet" href="/css/highlight.css"><link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css"><link rel="stylesheet" href="/css/cloudedGlass.css"><script id="fluid-configs">var Fluid=window.Fluid||{};Fluid.ctx=Object.assign({},Fluid.ctx);var dntVal,CONFIG={hostname:"whoispower.cn",root:"/",version:"1.9.2",typing:{enable:!0,typeSpeed:70,cursorChar:"_",loop:!1,scope:[]},anchorjs:{enable:!0,element:"h1,h2,h3,h4,h5,h6",placement:"left",visible:"hover",icon:""},progressbar:{enable:!0,height_px:3,color:"#29d",options:{showSpinner:!1,trickleSpeed:100}},code_language:{enable:!0,default:"TEXT"},copy_btn:!0,image_caption:{enable:!0},image_zoom:{enable:!0,img_url_replace:["",""]},toc:{enable:!0,placement:"right",headingSelector:"h1,h2,h3,h4,h5,h6",collapseDepth:0},lazyload:{enable:!0,loading_img:"/img/loading.gif",onlypost:!1,offset_factor:2},web_analytics:{enable:!0,follow_dnt:!0,baidu:null,google:null,gtag:null,tencent:{sid:null,cid:null},woyaola:null,cnzz:null,leancloud:{app_id:null,app_key:null,server_url:null,path:"window.location.pathname",ignore_local:!1}},search_path:"/local-search.xml"};CONFIG.web_analytics.follow_dnt&&(dntVal=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,Fluid.ctx.dnt=dntVal&&(dntVal.startsWith("1")||dntVal.startsWith("yes")||dntVal.startsWith("on")))</script><script src="/js/utils.js"></script><script src="/js/color-schema.js"></script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><header><div class="header-inner" style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/"><strong>陈好难啊チェン・ハオナン</strong> </a><button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li><li class="nav-item" id="color-toggle-btn"><a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li></ul></div></div></nav><div id="banner" class="banner" parallax="true" style="background:url(/img/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="banner-text text-center fade-in-up"><div class="h2"><span id="subtitle" data-typed-text="Mysql_note"></span></div><div class="mt-3"><span class="post-meta mr-2"><i class="iconfont icon-author" aria-hidden="true"></i> 陈浩南 </span><span class="post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2022-07-07 01:31" pubdate>2022年7月7日 凌晨</time></span></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 30k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 249 分钟 </span><span id="busuanzi_container_page_pv" style="display:none"><i class="iconfont icon-eye" aria-hidden="true"></i> <span id="busuanzi_value_page_pv"></span> 次</span></div></div></div></div></div></div></header><main><div class="container-fluid nopadding-x"><div class="row nomargin-x"><div class="side-col d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-x-md"><div class="container nopadding-x-md" id="board-ctn"><div id="board"><article class="post-content mx-auto"><h1 style="display:none">Mysql_note</h1><div class="markdown-body"><h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><h2 id="通用语法"><a href="#通用语法" class="headerlink" title="通用语法:"></a>通用语法:</h2><pre><code class="hljs">1.MYSQL英文: Structured Query Language 
+    简称 SQL
+
+2.MySQL数据库的SQL语句不分大小写，关键字建议用大写
+
+3.注释
+    - 单行注释: -- 注释内容 或 #注释内容(mysql特有)
+    - 多行注释: /*注释*/
+
+2.0分类:
+    1.DDL(Data Dafinition Language)数据定义语言，
+        用来定义数据库对象: 数据库，表，列等
+    2.DML(Data Mainpulation Language)数据库操作语言，
+        用来对数据库中表的数据进行增删改
+    3.DQL(Data Query Language)数据查询语言，
+        用来查询数据库中表的记录(数据)
+    4.DCL(Data Control Language)数据控制语言，
+        用来定义数据库的访问权限和安全级别，及创建用户
+</code></pre><h2 id="1-DDL"><a href="#1-DDL" class="headerlink" title="1.DDL"></a>1.DDL</h2><pre><code class="hljs">DDL(操作数据库)
+    查询: SHOW DATABASES 
+
+    创建: 
+        CREATE DATABASE 数据库名称;
+        CREATE DATABASE IF NOT EXISTS 数据库名称;(判断，如果不存在则创建)
+
+    删除: 
+        DROP DATABASE 数据库名称;
+        DROP DATABASE IF EXISTS 数据库名称;(判断，如果存在则删除)
+
+    使用数据库
+        查看当前的数据库: SELECT DATABASE();
+        视同数据库: USE 数据库名称;
+</code></pre><h2 id="2-DML"><a href="#2-DML" class="headerlink" title="2.DML"></a>2.DML</h2><pre><code class="hljs">    DML(操作表)
+</code></pre><h3 id="创建-Create"><a href="#创建-Create" class="headerlink" title="创建(Create)"></a>创建(Create)</h3><pre><code class="hljs">CREATE TABLE 表明称(
+        字段名1 数据类型1,
+        字段名n 数据类型n,
+    );
+例子:
+    CREATE TABLE tb_user(
+        id int ,
+        username varchar(20),
+        password varchar(32)
+        );
+数据类型:https://www.runoob.com/mysql/mysql-data-types.html
+数据类型的使用方式：
+    age int;score double(总长度,小数点后保留的分数)0-100 2 scoredouble2);
+
+    brithday date;
+
+    char和varchar的区别: 分别存储&quot;张三&quot;这个姓名
+
+    name char(10) 占用十个字符空间，剩下的用空格填补--定长
+
+    varchar char(10) 占用两个字符 (性能高)--边长
+        案例.
+            create table student(
+            id int,
+            name varchar(10),
+            gender char(1),
+            brithday date,
+            score double(5,2),
+            emailAddress varchar(64),
+            tell varchar(15),
+            status tinyint
+            );
+</code></pre><h3 id="查询-Retrieve"><a href="#查询-Retrieve" class="headerlink" title="查询(Retrieve)"></a>查询(Retrieve)</h3><pre><code class="hljs">查看当前的数据库下所有表名称:SHOW TABLES;
+查询表结构: DESC 表名称;
+</code></pre><h3 id="修改-Update"><a href="#修改-Update" class="headerlink" title="修改(Update)"></a>修改(Update)</h3><pre><code class="hljs">修改表名:
+    ALTER TABLE 表名 RENAME TO 新的表名;
+
+添加一列:
+    ALTER TABLE 表名 ADD 列名 数据类型;
+
+修改数据类型: 
+    ALTER TABLE 表名 MODIFY 列名 新数据类型;
+
+修改列名和数据类型
+    ALTER TABLE 表名 CHANGE 列名 新列名 新数据类型;
+
+删除列 
+    ALTER TABLE 表名 DROP 列名;
+</code></pre><h3 id="删除-Delete"><a href="#删除-Delete" class="headerlink" title="删除(Delete)"></a>删除(Delete)</h3><pre><code class="hljs">DROP TABLE 表名称;
+DROP TABLE IF EXISTS 表名字;
+</code></pre><h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="添加表数据"><a href="#添加表数据" class="headerlink" title="添加表数据"></a>添加表数据</h2><pre><code class="hljs">1.给指定列添加数据
+    INSERT INTO 表名 (列名1,列名2,..) VALUES(值1,值2,..)
+
+2.给全部列添加数据
+    INSERT INTO 表名 VALUES(值1,值2,..)
+
+3.批量添加数据
+    INSERT INTO 表名 (列名1,列名2,..) VALUES(值1,值2,..)(值1,值2,..)(值1,值..)..;
+    INSERT INTO 表名 VALUES(值1,值2,..)(值1,值2,..)(值1,值2,..)..;
+
+案例：
+    添加数据
+        查询所有数据
+            SELECT * FROM std;
+
+        给指定列添加数据 insert into表名(列名1,列名2,..) values(值1,值2,);
+            insert INTO std (id,`name`) values(1,&quot;张飞&quot;);
+
+        给所有列添加数据
+            insert into std (id,`name`,sex,brithday,score,emailAddrestell,`status`,Hobby) VALUES(2,&#39;李四&#39;,&#39;男&#39;,&#39;199-11-10&#39;,88.8&#39;chn@gmail.com&#39;,&#39;13578945612&#39;,&#39;1&#39;,&#39;打篮球&#39;);
+
+        给所有列添加数据(简化方式)
+            insert into std VALUES(2,&#39;李四&#39;,&#39;男&#39;,&#39;199-11-10&#39;,88.8&#39;chn@gmail.com&#39;,&#39;13578945612&#39;,&#39;1&#39;,&#39;打篮球&#39;);
+
+        批量添加
+            INSERT INTO std 
+            (id,`name`,sex,brithday,score,emailAddress,tell,`status`,Hobby)
+            VALUES
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; ),
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; ),
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; ),
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; );
+
+        批量添加(简化方式)
+            INSERT INTO std
+            VALUES
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; ),
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; ),
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; ),
+            ( 2, &#39;李四&#39;, &#39;男&#39;, &#39;199-11-10&#39;, 88.88, &#39;chn@gmail.com&#39;&#39;13578945612&#39;, &#39;1&#39;, &#39;打篮球&#39; );
+</code></pre><h2 id="修改表数据"><a href="#修改表数据" class="headerlink" title="修改表数据"></a>修改表数据</h2><pre><code class="hljs">修改表数据语法
+    UPDATE 表名 SET 列名1 = 值1, 【WHERE 条件】;
+    【注意】 修改语句中如果不加条件，则将所有数据都修改！
+
+例子:
+    将张飞的性别改为女
+        UPDATE std set sex = &#39;女&#39; WHERE `name` = &quot;张飞&quot;;
+
+    将张三的生日改为 199-12-12，分数改为99.99
+        UPDATE std set brithday=&#39;1999-12-12&#39;,score=&#39;99.99&#39; wher`name`=&#39;张飞&#39;;
+</code></pre><h2 id="删除表数据"><a href="#删除表数据" class="headerlink" title="删除表数据"></a>删除表数据</h2><pre><code class="hljs">    1.删除数据
+        DELETE FROM 表名 【where 条件】
+        【注意】 删除语句中如果不加条件，则将所有数据都删除！
+    例子:
+        删除hello记录
+            DELETE FROM std WHERE name = &#39;hello&#39;;
+        不加条件将所有数据删除
+            DELETE FROM std ;
+</code></pre><h1 id="查询-进阶"><a href="#查询-进阶" class="headerlink" title="查询(进阶)"></a>查询(进阶)</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><pre><code class="hljs">    SELECT 
+        字段列表
+
+    FROM
+        表名列表
+
+    WHERE
+        条件列表
+
+    GROUP BY
+        分组字段
+
+    HAVING
+        分组后条件
+        
+    ORDER BY
+        排序字段
+
+    LIMIT
+        分页限定
+</code></pre><h2 id="基础查询"><a href="#基础查询" class="headerlink" title="基础查询"></a>基础查询</h2><h3 id="查询多个字段"><a href="#查询多个字段" class="headerlink" title="查询多个字段"></a>查询多个字段</h3><pre><code class="hljs">    SELECT 字段列表 FROM 表名;
+    SELECT * FROM 表名;
+    举例:
+        创建 stu 表
+            CREATE table stu(
+            id int ,-- 编号
+            name VARCHAR(20),-- 姓名
+            age int,-- 年龄
+            sex VARCHAR(5),-- 性别
+            address VARCHAR(100), -- 地址
+            math double(5,2), -- 数学成绩
+            english double(5,2), -- 英语成绩
+            hire_date date -- 入学时间
+            );
+
+    查询表结构
+    		DESC stu;
+    	添加数据
+    		INSERT INTO stu (id,`name`,age,sex,address,math,english,hire_date)
+
+            VALUES
+                (2,&#39;刘备&#39;,&#39;55&#39;,&#39;男&#39;,&#39;香港&#39;,&#39;56.23&#39;,&#39;15.86&#39;,&#39;1999-07-17&#39;),
+                (3,&#39;张飞&#39;,&#39;35&#39;,&#39;男&#39;,&#39;香港&#39;,&#39;15.63&#39;,&#39;56.34&#39;,&#39;1999-06-16&#39;),
+                (4,&#39;瑶妹&#39;,&#39;25&#39;,&#39;女&#39;,&#39;澳门&#39;,&#39;45.23&#39;,&#39;46.62&#39;,&#39;1999-05-16&#39;),
+                (5,&#39;貂蝉&#39;,&#39;15&#39;,&#39;女&#39;,&#39;台湾&#39;,&#39;86.23&#39;,&#39;94.23&#39;,&#39;1999-04-15&#39;),
+                (6,&#39;吕布&#39;,&#39;30&#39;,&#39;男&#39;,&#39;广东&#39;,&#39;15.45&#39;,&#39;84.12&#39;,&#39;1999-03-14&#39;),
+                (7,&#39;项羽&#39;,&#39;42&#39;,&#39;男&#39;,&#39;海南&#39;,&#39;78.62&#39;,&#39;15.10&#39;,&#39;1999-02-13&#39;),
+                (8,&#39;妲己&#39;,&#39;20&#39;,&#39;女&#39;,&#39;贵州&#39;,&#39;64.23&#39;,&#39;51.37&#39;,&#39;1999-01-12&#39;);
+
+            查询表数据
+                SELECT * FROM STU;
+
+            查询 name and age 两列
+                SELECT `name`,age FROM stu;
+
+            查询所有列的数据，列明的列表可以用*代替(不推荐)
+                SELECT id,`name`,age,sex,address,math,english,hire_date FROMstu;【推荐】
+
+                SELECT * FROM stu;【不推荐】
+
+            查询地址信息
+                    SELECT address FROM stu;
+</code></pre><h3 id="去除重复记录"><a href="#去除重复记录" class="headerlink" title="去除重复记录"></a>去除重复记录</h3><pre><code class="hljs">    SELECT DISTINCT 字段列表 FROM 表名;
+    2.0举例
+        -- 去除重复记录
+            SELECT DISTINCT address FROM stu;
+</code></pre><h3 id="起别名"><a href="#起别名" class="headerlink" title="起别名"></a>起别名</h3><pre><code class="hljs">    AS : AS 也可以省略
+    -- 查询姓名，数学，英语成绩并且用as(可以省略【记得隔一个空格的距离别名(更加利于阅读表格)
+        SELECT `name`,math as 数学成绩,english as 英语成绩 FROM stu;
+</code></pre><h2 id="条件查询-where"><a href="#条件查询-where" class="headerlink" title="条件查询(where)"></a>条件查询(where)</h2><pre><code class="hljs">(1)条件查询语法
+    SELECT 字段列表 FROM 表名 WHERE 条件列表 ;
+    等于									 =
+    不等于									 ！= 或者 &lt;&gt;
+    在某个范围内都包含			 			 BETWEEN ..AND..
+    多选一						 			 IN(...)
+    模糊查询_单个任意字符 %多个任意字符		 LINK 占位符号	
+    是NULL 									 IS NULL
+    不是NULL 								 IS NOT NULL
+    并且									 AND 或者 &amp;&amp;
+    或者									 OR 或者 ||
+    非,不是									 NOT 或者 !
+
+    举例:
+        -- 1.查询年龄大于20的学员信息
+            USE hei;
+            SELECT * FROM stu WHERE age &gt; 20;
+
+        -- 2.查询年龄大于等于20并且年龄小于等于40岁的学员信息
+            SELECT * FROM stu WHERE age &gt;= 20 &amp;&amp; age &lt;= 40;
+            SELECT * FROM stu WHERE age &gt;= 20 AND age &lt;= 40;
+            SELECT * FROM stu WHERE age BETWEEN 20 AND 40;
+
+        -- 3.查询入学时期在&#39;1999-04-01&#39;到&#39;1999-09-01&#39;的学员信息
+            SELECT * FROM stu WHERE hire_date BETWEEN &#39;1999-04-01&#39; AN&#39;1999-09-01&#39;; 
+
+        -- 4.查询年龄等于15岁的学员信息
+            SELECT * FROM stu WHERE age = 15;
+
+        -- 5.查询年龄不等于15的学员信息
+            SELECT * FROM stu WHERE age != 15;
+            SELECT * FROM stu WHERE age &lt;&gt; 15;
+
+        -- 6.查询年龄等于15 或者 25 或者35 的学员信息
+            SELECT * FROM stu WHERE age = 15 || age = 25 || age = 35;
+            SELECT * FROM stu WHERE age = 15 or age = 25 or age = 35;
+            SELECT * FROM stu WHERE age in(15,25,35);
+
+        -- 7. 查询英语成绩为NULL的学员信息
+        -- 【注意】NULL 值的比较不能使用=  ！=  需要使用 IS IS NOT 
+            SELECT * FROM stu WHERE english IS NULL;
+        -- 查询英语成绩不为NULL的学员信息
+            SELECT * FROM stu WHERE english IS NOT NULL;
+
+        -- 8.模糊查询 
+            /*通配符：
+                (1)_代表单个任意字符
+                (2)%代表多个任意字符
+            */
+            例子:
+                -- 查询姓&#39;张&#39;的成员信息
+                    SELECT * FROM stu WHERE `name` like &#39;张%&#39;; 
+                -- 查询第二个字为‘备’的成员信息
+                    SELECT * FROM stu WHERE `name` like &#39;_备%&#39;;
+                -- 查询名字中包含‘妲’的成员信息
+                    SELECT * FROM stu WHERE `name` like &#39;%妲%&#39;;
+</code></pre><h2 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h2><pre><code class="hljs">    (1)排序查询语法
+        SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排序字2[排序方式2]..;
+    (2)排序方式 
+        * ASC : 升序排列(默认值)
+        * DESC : 降序排列
+    【注意】如果有多个排序条件，当前面的条件值一样时候，才会根据第二条进行排序
+
+    例子:
+        -- 1.查询学生信息，按照年龄升序排序
+            SELECT id,`name`,age FROM stu ORDER BY age ASC;
+            SELECT * FROM ORDER BY age ASC;
+            SELECT * FROM ORDER BY age;  -- ASC是默认值，可以省略
+
+        -- 2.查询学生信息，按照数学成绩降序排序
+            SELECT id,`name`,math FROM stu ORDER BY math DESC;
+            SELECT * FROM stu ORDER BY math DESC; 
+
+        -- 3.查询学生信息，按照数学成绩降序排列，如果成绩一样，再按照英语成绩升序排列
+                    SELECT * FROM stu ORDER BY math DESC,english ASC; 
+</code></pre><h2 id="分组查询-group-by"><a href="#分组查询-group-by" class="headerlink" title="分组查询(group by)"></a>分组查询(group by)</h2><pre><code class="hljs">聚合函数
+    1.概念: 将一列作为一个整体进行纵向计算
+
+    2.聚合函数分类:					
+    求平均值		AVG([distinct] expr)					
+    统计行的数量	COUNT(&#123;*|[distinct] &#125; expr)
+        1.主键
+        2.*
+    求最大值		MAX([distinct] expr)
+    求最小值		MIN([distinct] expr)
+    求累加和		SUM([distinct] expr)
+                    
+    聚合函数语法:
+        SELECT 聚合函数名(列名) FROM 表;
+
+        【注意】 null值不参与所有聚合函数运算
+        
+        例子:
+            -- 1.统计班级一共有多少个学生
+                SELECT COUNT(id) FROM stu;-- count 统计的列名不能为null
+                SELECT * FROM stu;
+
+            -- 2.查询数学成绩最高分
+                SELECT MAX(math) FROM stu;
+
+            -- 3. 查询数学成绩的最低分
+                SELECT MIN(math) FROM stu;
+
+            -- 4.查询数学成绩的总分
+                ELECT SUM(math) FROM stu;
+
+            -- 5.查询数学成绩的平均分
+                SELECT AVG(math) FROM stu; 
+
+            1.分组查询的语法
+                SELECT 字段列表 FROM 表名 【WHERE 分组前条件限定】 GROUP BY 分组字段名 【WHERE 分组后条件过滤】;
+
+        【注意】 分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义
+                where 和 having 区别
+                    * 执行时机不一样: where是分组之前进行限定，不满足where条件，
+                        则不参与分组,而having是分组之后对结果进行过滤
+
+                    * 可判断条件不一样: where 不能对聚合函数进行判断，having可以.
+        【执行顺序】where &gt; 聚合函数 &gt; having
+            例子:
+                -- 1.查询男同学和女同学各自的数学平均分
+                    SELECT sex,AVG(math) FROM stu GROUP BY sex;
+
+                -- 2.查询男同学和女同学各自的数学平均分，以及各自人数
+                    SELECT sex,AVG(math),COUNT(*) FROM stu GROUP BY sex;
+
+                -- 3.查询男同学和女同学各自的数学平均分，以及各自人数,要求分数低于70不进行分组
+                    SELECT sex,AVG(math),COUNT(*) FROM stu WHERE math &gt; 70 GROUP BY sex;
+
+                -- 4.查询男同学和女同学各自的数学平均分，以及各自人数,要求分数低于70不进行分组,分组之后分数大于2个的。
+                    SELECT sex,AVG(math),COUNT(*) FROM stu WHERE math &gt; 70 GROUP BY sex HAVING COUNT(*)&gt;2 ;
+</code></pre><h2 id="分页查询-LIMIT"><a href="#分页查询-LIMIT" class="headerlink" title="分页查询(LIMIT)"></a>分页查询(LIMIT)</h2><pre><code class="hljs">分页查询基本语法
+    SELECT 字段列表 FROM 表名 LIMIT 起始索引,查询条目数;
+
+* 起始索引: 从0开始
+【计算公式】: 起始索引 = (当前页码-1) * 每页显示的条数
+
+tips:
+    * 分页查询LIMIT是mysql数据库的方言
+    * Oracle 分页查询使用 rownumber
+    * SQL Server分页查询使用top
+
+例子:
+    -- 1.从0开始查询，查询三条数据
+        * FROM stu LIMIT 0,3; 
+
+    -- 2.每页显示三条数据，查询第一页数据
+        SELECT * FROM stu LIMIT 0,3; 
+
+    -- 3.每页显示三条数据，查询第二页数据
+        SELECT * FROM stu LIMIT 3,3; 
+
+    -- 4.每页显示三条数据，查询第三页数据
+        SELECT * FROM stu LIMIT 6,3; 
+</code></pre><h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><pre><code class="hljs">        * 概念&amp;分类
+            约束是作用于表中列上的规则，用于限制加入表的数据
+            约束的存在保证了数据库中数据的正确性，有效性，完整性
+        约束名称		描述																						
+        * 非空约束		保证列中所有数据不能有NULL值				NOT NULL 
+        * 唯一约束		保证列中所有数据各不相同					UNIQUE  
+        * 主键约束		主键是一行数据的唯一标识，要求非空且唯一	PRIMARY KEY
+        * 默认约束		保证列中的值满足某一条件					CHECK 
+        * 检查约束		保存数据时，未指定值则采用默认值			DEFAULT
+        * 外键约束		外键用来让两个数据之间的建立链接，保证数据的一致性和完整性 FOREIGN KEY
+        Tips : MYSQL不支持检查约束
+        案例:
+        根据需求为表添加合适的约束
+        -- 员工表
+            CREATE TABLE emp (
+            id INT PRIMARY KEY auto_increment, -- 员工id,主键且自增长
+            ename varchar(50) NOT NULL UNIQUE, -- 员工姓名,非空且唯一
+            joindate DATE NOT NULL, -- 入职日期,非空约束
+            salary DOUBLE(7,2) NOT NULL,-- 工资,非空约束
+            bonus DOUBLE(7,2) DEFAULT 0 -- 奖金，如果没奖金默认为0
+            );
+
+        -- 查询表数据
+            SELECT * FROM emp;
+        -- 添加数据
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(1,&#39;张三&#39;,&#39;1999-11-11&#39;,8890,5000);
+            SELECT * FROM emp;
+        -- 1.演示主键约束,非空且唯一
+        -- 非空
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(NULL,&#39;张三&#39;,&#39;1999-11-11&#39;,8890,5000);
+        -- 唯一
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(1,&#39;张三&#39;,&#39;1999-11-11&#39;,8890,5000);
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(2,&#39;李四&#39;,&#39;1999-11-11&#39;,8890,5000);
+        -- 演示非空约束
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(3,NULL,&#39;1999-11-11&#39;,8890,5000);
+        -- 演示唯一约束
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(3,&#39;李四&#39;,&#39;1999-11-11&#39;,8890,5000);
+        -- 默认约束
+            INSERT INTO emp (id,ename,joindate,salary) VALUES(3,&#39;王五&#39;,&#39;1999-11-11&#39;,8890);
+
+        -- 演示 auto_increment
+        -- 先删除旧的emp
+            DROP TABLE IF EXISTS emp;
+        -- 添加一个新的emp
+            CREATE TABLE emp (
+            id INT PRIMARY KEY auto_increment, -- 员工id,主键且自增长
+            ename varchar(50) NOT NULL UNIQUE, -- 员工姓名,非空且唯一
+            joindate DATE NOT NULL, -- 入职日期,非空
+            salary DOUBLE(7,2) NOT NULL,-- 工资,非空
+            bonus DOUBLE(7,2) DEFAULT 0 -- 奖金，如果没奖金默认为0
+            );
+        -- 添加两个数据
+            INSERT INTO emp (ename,joindate,salary,bonus) VALUES(&#39;李四&#39;,&#39;1999-11-11&#39;,8890,5000);
+            INSERT INTO emp (id,ename,joindate,salary,bonus) VALUES(NULL,&#39;李五&#39;,&#39;1999-11-11&#39;,8890,5000);
+            SELECT * FROM emp;	
+        (1).非空约束语法
+            添加约束
+                -- 创建表时添加约束
+                CREATE TABLE 表名(
+                    列名 数据类型 NOT NULL,
+                    ..
+                    );
+                -- 创建完成后添加非空约束
+                ALTER TABLE 表名 MODIFY 字段名 数据类型 NOT NULL;
+            删除约束
+                ALTER TABLE 表名 MODIFY 字段名 数据类型;
+        (2).唯一约束语法
+            添加约束
+                -- 创建表时添加约束
+                CREATE TABLE 表名(
+                    列名 数据类型 UNIQUE [AUTO_INCREMENT],
+                    -- AUTO_INCREMENT : 当不指定值时自动增长
+                    ..
+                    );
+                CREATE TABLE 表名(
+                    列名 数据类型,
+                    ..
+                    [CONSTRAINT][约束名称] UNIQUE(列名)
+                    );
+                -- 创建完成后添加非空约束
+                ALTER TABLE 表名 MODIFY 字段名 数据类型 UNIQUE;
+            删除约束
+                ALTER TABLE 表名 DROP INDEX 字段名;
+        (3).主键约束语法
+            添加约束
+                -- 创建表时添加约束
+                CREATE TABLE 表名(
+                    列名 数据类型 PRIMARY KEY [AUTO_INCREMENT],
+                    -- AUTO_INCREMENT : 当不指定值时自动增长
+                    ..
+                    );
+                CREATE TABLE 表名(
+                    列名 数据类型,
+                    ..
+                    [CONSTRAINT][约束名称] PRIMARY(列名)
+                    );
+                -- 创建完成后添加非空约束
+                ALTER TABLE 表名 ADD PRIMARY KEY;
+            删除约束
+                ALTER TABLE 表名 DROP PRIMARY KEY;
+            SELECT * FROM emp;	
+        (4).默认约束语法
+            添加约束
+                -- 创建表时添加约束
+                CREATE TABLE 表名(
+                    列名 数据类型 DEFAULT 默认值,
+                    ..
+                    );
+                -- 创建完成后添加非空约束
+                ALTER TABLE 表名 ALTER 列名 SET DEFAULT;
+            删除约
+                ALTER TABLE 表名 ALTER 列名 DROP DEFAULT;
+        (5).外键约束	
+            添加约束
+                -- 创建表时添加约束
+                CREATE TABLE 表名(
+                    列名 数据类型,
+                    ..
+                    [CONSTRAINT] [外键名称] FOREIGN KEY (外键列名) REFERENCES 主表(主表列名)
+                    );
+                -- 创建完成后添加非空约束
+                ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主列表名称);
+            删除
+                ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
+            举例:
+            -- 部门表(主表)
+                CREATE TABLE dept(
+                id int PRIMARY KEY auto_increment,
+                dep_name VARCHAR(20),
+                addr VARCHAR(20)
+                );
+            -- 员工表(从表)
+                CREATE TABLE emp(
+                    id int PRIMARY KEY auto_increment,
+                    emp_name varchar(20),
+                    age int,
+                    dep_id int,
+                    -- 添加外键 dp_id关联主表dept中id
+                    CONSTRAINT fk_emp_dept FOREIGN KEY(dep_id) REFERENCES dept(id)
+                    );
+            -- 添加部门数据
+                INSERT INTO dept (dep_name,addr) VALUES
+                (&#39;研发部&#39;,&#39;广州&#39;),(&#39;销售部&#39;,&#39;深圳&#39;);
+            -- 添加员工数据
+                INSERT INTO emp (emp_name,age,dep_id) VALUES
+                (&#39;张三&#39;,20,1),
+                (&#39;李四&#39;,20,1),
+                (&#39;王五&#39;,20,1),
+                (&#39;赵六&#39;,20,2),
+                (&#39;孙七&#39;,22,2),
+                (&#39;周八&#39;,18,2);
+            -- 删除外键
+                ALTER TABLE emp DROP FOREIGN KEY fk_emp_dept;
+            -- 创建完成之后添加外键
+                ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dep_id) REFERENCES dept(id); 
+    6.数据库设计
+        1.表关系之一对多
+            * 如:部门和员工表，一个员工对应一个部门，一个部门对应多个员工。
+            * 实现方式:在多的一方建立外键，指向一的一方的主键。
+            * 外键约束例子。
+        2.表关系之多对多
+            * 如: 订单 和 商品
+            * 一个商品对应多个订单，一个订单对应多个商品
+            * 实现方式:建立第三张中间表，中间表至少包含两个外键，分别关联两方的主键。
+            * 例子.
+                -- 订单表
+                    CREATE TABLE tb_order(
+                    id int PRIMARY KEY auto_increment,
+                    payment DOUBLE(10,2),
+                    payment_type TINYINT,
+                    status TINYINT
+                    );
+                -- 商品表
+                    CREATE TABLE tb_goods(
+                    id int PRIMARY KEY auto_increment,
+                    title VARCHAR(100),
+                    price DOUBLE(10,2)
+                    );
+                -- 订单商品中间表
+                    CREATE TABLE tb_order_goods(
+                    id int PRIMARY KEY auto_increment,
+                    order_id int,
+                    goods_id int,
+                    count int
+                    );
+
+                -- 建完表之后添加外键
+                    -- ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主列表名称);
+                    ALTER TABLE tb_order_goods ADD CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES tb_order(id);
+                    ALTER TABLE tb_order_goods ADD CONSTRAINT fk_goods_id FOREIGN KEY (goods_id) REFERENCES tb_goods(id);
+        3.表关系之一对一
+            * 如: 用户和用户详情
+            * 一对一关系多用于表拆分，将一个实体中经常使用的字段放一张表，不经常使用的字段放另一张表，用于提升查询性能。
+            * 实现方式: 在任意一方加入外键，关联另一方主键，并且设置外键为唯一(UNIQUE)
+    7.多表查询	
+        例如:
+            -- 部门表(主表)
+                CREATE TABLE dept(
+                did int PRIMARY KEY auto_increment,
+                dname VARCHAR(20)
+                );
+            -- 员工表(从表)
+                CREATE TABLE emp(
+                id int PRIMARY KEY auto_increment,
+                NAME varchar(10),
+                gender CHAR(1), -- 性别
+                salary DOUBLE, -- 工资
+                join_date DATE, -- 入职日期
+                dep_id INT,
+            -- 添加外键 dp_id关联主表dept中id
+                FOREIGN KEY(dep_id) REFERENCES dept(did)
+                );
+            -- 添加部门数据
+                INSERT INTO dept (dname) VALUES
+                (&#39;研发部&#39;),
+                (&#39;市场部&#39;),
+                (&#39;财务部&#39;),
+                (&#39;销售部&#39;);
+            -- 添加员工数据
+                INSERT INTO emp (`NAME`,gender,salary,join_date,dep_id) VALUES
+                (&#39;孙悟空&#39;,&#39;男&#39;,7200,&#39;2013-02-24&#39;,1),
+                (&#39;猪八戒&#39;,&#39;男&#39;,3600,&#39;2010-12-02&#39;,2),
+                (&#39;唐曾&#39;,&#39;男&#39;,9000,&#39;2008-08-08&#39;,2),
+                (&#39;白骨精&#39;,&#39;女&#39;,5000,&#39;2015-10-07&#39;,3),
+                (&#39;蜘蛛精&#39;,&#39;女&#39;,4500,&#39;2011-03-14&#39;,1),
+                (&#39;小白龙&#39;,&#39;男&#39;,2500,&#39;2011-02-14&#39;,NULL);
+                -- 查询emp 和 dept 的数据，emp.dep_id = dept_did 
+                SELECT * FROM emp,dept WHERE emp.dep_id = dept.did; -- 内连接		
+        笛卡尔积 : 取A,B两个集合 取A,B所有的组合情况
+            多表查询: 从多张表查询数据
+                连接查询
+                    内连接: 相当于查询AB的交集数据
+                    -- 隐式内连接
+                        SELECT 字段列表 FROM 表1,表2..	WHERE 条件;
+                        -- 给表起别名				
+                        SELECT t1.`NAME`,t1.gender,t2.dname FROM emp t1,dept t2 WHERE t1.dep_id = t2.did ;
+                    -- 显示内连接
+                        SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 条件;
+                        SELECT * FROM emp inner join dept on emp.dep_id = dept.did;
+                    外连接: 
+                        左外连接: 相当于查询A表所有数据和交集部分数据
+                            SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件;
+                            -- 查询emp表的所有数据和对应的员工信息
+                            SELECT * FROM emp LEFT JOIN dept ON emp.dep_id = dept.did;
+                        右外连接: 相当于查询B表所有数据和交集部分数据
+                            SELECT 字段列表 FROM 表1 right [OUTER] JOIN 表2 ON 条件;
+                            -- 查询dept表的所有数据和对应的员工信息
+                            SELECT * FROM emp RIGHT JOIN dept ON emp.dep_id = dept.did;
+                子查询
+                    1.子查询概念
+                        查询中嵌套查询，称嵌套查询为子查询
+                    2.子查询根据查询结果不同，作用不同:
+                        * 单行单列: 作为条件值，使用= != &lt; &gt;等进行条件判断
+                                SELECT 字段列表 FROM 表 WHERE 字段名 = (子查询);
+                            -- 查询猪八戒的工资
+                                SELECT `NAME`,salary FROM emp WHERE `NAME` = &#39;猪八戒&#39;;
+                            -- 查询工资高于猪八戒的员工信息
+                                SELECT `NAME`,salary FROM emp WHERE salary &gt; 3600;
+                                SELECT *FROM emp WHERE salary &gt; (SELECT salary FROM emp WHERE `NAME` = &#39;猪八戒&#39;);
+                        * 多行单列: 作为条件值，使用in等关键字进行条件判断
+                            SELECT 字段列表 FROM 表 WHERE 字段名 in(子查询);			
+                            -- 查询‘财务部’，‘市场部’所有员工信息
+                                SELECT did FROM dept where dname = &#39;财务部&#39; or dname =  &#39;市场部&#39;; -- 等于2or3
+                                SELECT * FROM emp WHERE dep_id in (2,3);
+                                SELECT * FROM emp WHERE dep_id in (SELECT did FROM dept where dname = &#39;财务部&#39; or dname =  &#39;市场部&#39;);
+                        * 多行多列: 作为虚拟表。
+                            SELECT 字段列表 FROM (子查询) WHERE 条件;
+                            -- 查询入职日期是‘2011-11-11’之后的员工信息和部门信息
+                                SELECT * FROM emp WHERE join_date &gt; &#39;2011-11-11&#39;;
+                                SELECT * FROM (SELECT * FROM emp WHERE join_date &gt; &#39;2011-11-11&#39;) t1,dept WHERE t1.dep_id = dept.did;
+                    多表查询案例
+                        DROP TABLE
+                        IF
+                            EXISTS emp;
+                        DROP TABLE
+                        IF
+                            EXISTS dept;
+                        DROP TABLE
+                        IF
+                            EXISTS job;
+                        DROP TABLE
+                        IF
+                            EXISTS salarygrade;-- 部门表
+                        CREATE TABLE dept ( id INT PRIMARY KEY PRIMARY KEY, -- 部门id
+                            dname VARCHAR ( 50 ), -- 部门名称
+                            loc VARCHAR ( 50 ) -- 部门所在地
+                        );-- 职务表，职务名称，职务描述
+                        CREATE TABLE job ( id INT PRIMARY KEY, jname VARCHAR ( 20 ), description VARCHAR ( 50 ) );-- 员工表
+                        CREATE TABLE emp (
+                            id INT PRIMARY KEY,-- 员工id
+                            ename VARCHAR ( 50 ),-- 员工姓名
+                            job_id INT,-- 职务id
+                            mgr INT,-- 上级领导
+                            joindate DATE,-- 入职日期
+                            salary DECIMAL ( 7, 2 ),-- 工资
+                            bonus DECIMAL ( 7, 2 ),-- 奖金
+                            dept_id INT,-- 所在部门编号
+                            CONSTRAINT emp_jobid_ref_job_id_fk FOREIGN KEY ( job_id ) REFERENCES job ( id ),
+                            CONSTRAINT emp_deptid_ref_dept_id_fk FOREIGN KEY ( dept_id ) REFERENCES dept ( id ) 
+                        );-- 工资等级表
+                        CREATE TABLE salarygrade ( grade INT PRIMARY KEY, -- 级别
+                            losalary INT, -- 最低工资
+                            hisalary INT -- 最高工资
+                        );-- 添加4个部门
+                        INSERT INTO dept ( id, dname, loc )
+                        VALUES
+                            ( 10, &#39;教研部&#39;, &#39;北京&#39; ),
+                            ( 20, &#39;学工部&#39;, &#39;上海&#39; ),
+                            ( 30, &#39;销售部&#39;, &#39;广州&#39; ),
+                            ( 40, &#39;财务部&#39;, &#39;深圳&#39; );-- 添加4个职务
+                        INSERT INTO job ( id, jname, description )
+                        VALUES
+                            ( 1, &#39;董事长&#39;, &#39;管理整个公司，接单&#39; ),
+                            ( 2, &#39;经理&#39;, &#39;管理部门员工&#39; ),
+                            ( 3, &#39;销售员&#39;, &#39;向客人推销产品&#39; ),
+                            ( 4, &#39;文员&#39;, &#39;使用办公软件&#39; );-- 添加员工
+                        INSERT INTO emp ( id, ename, job_id, mgr, joindate, salary, bonus, dept_id )
+                        VALUES
+                            ( 1001, &#39;孙悟空&#39;, 4, 1004, &#39;2000-12-17&#39;, &#39;8000.00&#39;, NULL, 20 ),
+                            ( 1002, &#39;卢俊义&#39;, 3, 1006, &#39;2001-02-20&#39;, &#39;16000.00&#39;, &#39;3000.00&#39;, 30 ),
+                            ( 1003, &#39;林冲&#39;, 3, 1006, &#39;2001-02-22&#39;, &#39;12500.00&#39;, &#39;5000.00&#39;, 30 ),
+                            ( 1004, &#39;唐僧&#39;, 2, 1009, &#39;2001-04-02&#39;, &#39;29750.00&#39;, NULL, 20 ),
+                            ( 1005, &#39;李逵&#39;, 4, 1006, &#39;2001-09-28&#39;, &#39;12500.00&#39;, &#39;14000.00&#39;, 30 ),
+                            ( 1006, &#39;宋江&#39;, 2, 1009, &#39;2001-05-01&#39;, &#39;28500.00&#39;, NULL, 30 ),
+                            ( 1007, &#39;刘备&#39;, 2, 1009, &#39;2001-09-01&#39;, &#39;24500.00&#39;, NULL, 10 ),
+                            ( 1008, &#39;猪八戒&#39;, 4, 1004, &#39;2007-04-19&#39;, &#39;30000.00&#39;, NULL, 20 ),
+                            ( 1009, &#39;罗贯中&#39;, 1, NULL, &#39;2001-11-17&#39;, &#39;50000.00&#39;, NULL, 10 ),
+                            ( 1010, &#39;吴用&#39;, 3, 1006, &#39;2001-09-08&#39;, &#39;15000.00&#39;, &#39;0.00&#39;, 30 ),
+                            ( 1011, &#39;沙僧&#39;, 4, 1004, &#39;2007-05-23&#39;, &#39;11000.00&#39;, NULL, 20 ),
+                            ( 1012, &#39;李逵&#39;, 4, 1006, &#39;2001-12-03&#39;, &#39;9500.00&#39;, NULL, 30 ),
+                            ( 1013, &#39;小白龙&#39;, 4, 1004, &#39;2001-12-03&#39;, &#39;30000.00&#39;, NULL, 20 ),
+                            ( 1014, &#39;关羽&#39;, 4, 1007, &#39;2002-01-23&#39;, &#39;13000.00&#39;, NULL, 10 );-- 添加5个工资等级
+                        INSERT INTO salarygrade ( grade, losalary, hisalary )
+                        VALUES
+                            ( 1, 7000, 12000 ),
+                            ( 2, 12010, 14000 ),
+                            ( 3, 14010, 20000 ),
+                            ( 4, 20010, 30000 ),
+                            ( 5, 30010, 99990 );-- 1.查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
+                        -- 隐式内连接
+                        SELECT
+                            emp.id,
+                            emp.ename,
+                            emp.salary,
+                            job.jname,
+                            job.description 
+                        FROM
+                            emp,
+                            job 
+                        WHERE
+                            emp.job_id = job.id;
+                        SELECT
+                            * 
+                        FROM
+                            emp;
+                        SELECT
+                            * 
+                        FROM
+                            job;-- 显示内连接
+                        SELECT
+                            emp.id,
+                            emp.ename,
+                            emp.salary,
+                            job.jname,
+                            job.description 
+                        FROM
+                            emp
+                            INNER JOIN job ON emp.job_id = job.id;-- 2.查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
+                        -- 隐式内连接
+                        SELECT
+                            emp.id,
+                            emp.ename,
+                            emp.salary,
+                            job.jname,
+                            job.description,
+                            dept.dname,
+                            dept.loc 
+                        FROM
+                            emp,
+                            job,
+                            dept 
+                        WHERE
+                            emp.job_id = job.id 
+                            AND dept.id = emp.dept_id;-- 显示内连接
+                        SELECT
+                            emp.id,
+                            emp.ename,
+                            emp.salary,
+                            job.jname,
+                            job.description,
+                            dept.dname,
+                            dept.loc 
+                        FROM
+                            emp
+                            INNER JOIN job ON emp.job_id = job.id
+                            INNER JOIN dept ON emp.dept_id = dept.id;-- 3.查询员工姓名，工资，工资等级
+                        SELECT
+                            emp.ename,
+                            emp.salary,
+                            t2.* 
+                        FROM
+                            emp,
+                            salarygrade t2 
+                        WHERE
+                            emp.salary &gt;= t2.losalary 
+                            AND emp.salary &lt;= t2.hisalary;-- 4.查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
+                        SELECT
+                            emp.id,
+                            emp.ename,
+                            emp.salary,
+                            job.jname,
+                            job.description,
+                            dept.dname,
+                            dept.loc,
+                            t2.grade 
+                        FROM
+                            emp,
+                            job,
+                            dept,
+                            salarygrade t2 
+                        WHERE
+                            emp.salary &gt;= t2.losalary 
+                            AND emp.salary &lt;= t2.hisalary 
+                            AND emp.job_id = job.id 
+                            AND emp.dept_id = dept.id;
+                        -- 5.查询出部门编号、部门名称、部门位置、部门人数
+                        SELECT dept_id,COUNT(*) FROM emp GROUP BY dept_id;
+
+                        SELECT * FROM dept, (SELECT dept_id, COUNT(*) FROM emp GROUP BY dept_id) t1 WHERE t1.dept_id =dept.id;
+    8.事物
+        
+        DROP TABLE IF EXISTS account;
+
+        -- 创建账户表
+        CREATE TABLE account(
+            id int PRIMARY KEY auto_increment,
+            name varchar(10),
+            money double(10,2)
+        );
+
+        -- 添加数据
+        INSERT INTO account(name,money) values(&#39;张三&#39;,1000),(&#39;李四&#39;,1000);
+
+        UPDATE account set money = 1000;
+
+        select * from account;
+
+        -- 开启事务
+        BEGIN;
+        -- 转账操作
+        -- 1. 查询李四账户金额是否大于500
+
+        -- 2. 李四账户 -500
+        UPDATE account set money = money - 500 where name = &#39;李四&#39;;
+
+        -- 出现异常了...
+        -- 3. 张三账户 +500
+        UPDATE account set money = money + 500 where name = &#39;张三&#39;;
+
+        -- 提交事务
+        COMMIT;
+
+        -- 回滚事务
+        ROLLBACK; 
+
+        -- 查看事务的默认提交方式
+        SELECT @@autocommit;
+        -- 1 自动提交  0 手动提交
+        -- 修改事务提交方式
+        set @@autocommit = 0;
+    9.JDBC概念
+        1.0JDBC 就是使用Java语言操作关系型数据库的一套API
+        全称：( Java DataBase Connectivity ) Java 数据库连接
+        例子:
+            import java.sql.Connection;
+            import java.sql.Driver;
+            import java.sql.DriverManager;
+            import java.sql.Statement;
+            /**
+             *  JDBC的快速入门
+             * */
+            public class JDBC_Demo &#123;
+                public static void main(String[] args) throws Exception &#123;
+                    // 1.注册驱动
+                    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+                    // 2.获取链接
+                    String url = &quot;jdbc:mysql://127.0.0.1:3306/hei&quot;;
+                    String username = &quot;root&quot;;
+                    String password = &quot;1234&quot;;
+                    Connection conn = DriverManager.getConnection(url,username,password);
+                    // 3.定义sql
+                    String sql = &quot;UPDATE account SET money = 2000 WHERE id = 2&quot;;
+                    // 4.获取执行sql的对象 Statement
+                    Statement stmt = conn.createStatement();
+                    // 5.执行sql
+                    int count  = stmt.executeUpdate(sql);// 受影响的行数返回值
+                    // 6.处理结果
+                    System.out.println(count);
+                    // 7.释放资源
+                    stmt.close();
+                    conn.close();
+                    &#125;
+                    &#125;
+        2.0 DriverManager
+            DriverManager(启动管理类)作用:
+                1.注册驱动
+                    ==提示：==
+                        (1)MySQL 5之后的驱动包，可以省略注册驱动的步骤
+                            自动加载jar包中META-INF/services/java.sql.Driver文件
+                            中的驱动类
+                2.获取数据库链接
+                    URL:
+                        语法：jdbc:mysql://ip地址(域名):端口号/数据库名称?参
+                            数键值对1&amp;参数键值对2…
+                            示例：jdbc:mysql://127.0.0.1:3306/db1
+                    ==细节：
+                        如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，
+                        则url可以简写为：jdbc:mysql:///数据库名称?参数键值对1&amp;参数键值对2…
+                        配置 useSSL=false 参数，禁用安全连接方式，解决警告提示
+        3.0 Connection 
+            Connection(数据库链接对象)作用
+                1.获取执行SQL对象
+                    * 普通执行SQL对象
+                        Statement createStatement()
+                    * 预编译SQL的执行SQL对象:防止SQL注入
+                        PreparedStatement prepareStatement(sql)
+                    * 执行储蓄过程的对象
+                        CallableStatement prepareCall(sql)
+                2.管理事务  
+                    (1).MySQL事务管理的操作：
+                        开启事务 ： BEGIN; 或者 START TRANSACTION;
+                        提交事务 ： COMMIT;
+                        回滚事务 ： ROLLBACK;
+                    (2).JDBC事务管理的方法。
+                        Connection几口中定义了3个对应的方法：
+                        开启事务: setAutoCommit(boolean autoCommit)
+                            true表示自动提交事务，false表示手动提交事务。而开启事务需要将该参数设为为
+                            false。
+                        提交事务: commit();
+                        回滚事务: rollback();
+                        例子:
+                            public class JDBC_Demo02_Connection &#123;
+                                public static void main(String[] args) throws Exception &#123;
+                                    // 2.获取链接
+                                    String url = &quot;jdbc:mysql:///hei?useSSL=false&quot;;
+                                    String username = &quot;root&quot;;
+                                    String password = &quot;1234&quot;;
+                                    Connection conn = DriverManager.getConnection(url,username,password);
+                                    // 3.定义sql
+                                    String sql1 = &quot;UPDATE account SET money = 3000 WHERE id = 1&quot;;
+                                    String sql2 = &quot;UPDATE account SET money = 3000 WHERE id = 2&quot;;
+                                    // 4.获取执行sql的对象 Statement
+                                    Statement stmt = conn.createStatement();
+                                    // 开启事物
+                                    conn.setAutoCommit(false);
+                                    try &#123;
+                                        // 5.执行sql
+                                        int count1  = stmt.executeUpdate(sql1);// 受影响的行数返回值
+                                        // 6.处理结果
+                                        System.out.println(count1);
+                                        int i = 3/0;
+                                        // 5.执行sql
+                                        int count2  = stmt.executeUpdate(sql2);// 受影响的行数返回值
+</code></pre><p>。 &#x2F;&#x2F; 6.处理结果<br>System.out.println(count2);<br>&#x2F;&#x2F;提交事物<br>} catch (Exception throwables) {<br>&#x2F;&#x2F;回滚事物<br>conn.rollback();<br>throwables.printStackTrace();<br>}<br>&#x2F;&#x2F;提交事物<br>conn.commit();<br>&#x2F;&#x2F; 7.释放资源<br>stmt.close();<br>conn.close();<br>}<br>}<br>4.0 Statement<br>作用:<br>1.执行SQL语句<br>int excuteUpdate(sql):执行DML(数据的增删改操作),DDL(表和库的增删改操作)语句<br>返回值：(1)DML语句影响的行数<br>(2)DDL语句执行后，执行成功也可能返回0<br>ResultSet excuteQuery(sql):执行DQL(数据的查询操作)语句<br>返回值：ResultSet结果集对象<br>&#x2F;**<br>* 执行对应的DML语句<br>* @throws Exception<br>*&#x2F;<br>@Test<br>public void testDML() throws Exception {<br>&#x2F;&#x2F; 1.注册驱动<br>Class.forName(“com.mysql.jdbc.Driver”);<br>&#x2F;&#x2F; 2.获取链接<br>String url &#x3D; “jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;hei?useSSL&#x3D;false”;<br>String username &#x3D; “root”;<br>String password &#x3D; “1234”;<br>Connection conn &#x3D; DriverManager.getConnection(url,username,password);<br>&#x2F;&#x2F; 3.定义sql<br>String sql &#x3D; “UPDATE account SET money &#x3D; 3000 WHERE id &#x3D; 1”;<br>&#x2F;&#x2F; 4.获取执行sql的对象 Statement<br>Statement stmt &#x3D; conn.createStatement();<br>&#x2F;&#x2F; 5.执行sql<br>int count &#x3D; stmt.executeUpdate(sql);&#x2F;&#x2F; 受影响的行数返回值<br>&#x2F;&#x2F; 6.处理结果<br>if(count&gt;0)<br>{<br>System.out.println(“修改成功<del>“);<br>}else{<br>System.out.println(“修改失败</del>“);<br>}</p><pre><code class="hljs">                        // 7.释放资源
+                        conn.close();
+                        stmt.close();
+                    &#125;
+
+                    /**
+                     * 执行对应的DDL语句
+                     * @throws Exception
+                     */
+                    @Test
+                    public void testDDL() throws Exception &#123;
+                        // 1.注册驱动
+                        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+                        // 2.获取链接
+                        String url = &quot;jdbc:mysql://127.0.0.1:3306/hei?useSSL=false&quot;;
+                        String username = &quot;root&quot;;
+                        String password = &quot;1234&quot;;
+                        Connection conn = DriverManager.getConnection(url,username,password);
+                        // 3.定义sql
+                        String sql = &quot;Drop Database hei2&quot;;
+                        // 4.获取执行sql的对象 Statement
+                        Statement stmt = conn.createStatement();
+                        // 5.执行sql
+                        int count  = stmt.executeUpdate(sql);//执行DDL可能返回0
+                //        // 6.处理结果
+                //        if(count&gt;0)
+                //        &#123;
+                //            System.out.println(&quot;修改成功~&quot;);
+                //        &#125;else&#123;
+                //            System.out.println(&quot;修改失败~&quot;);
+                //        &#125;
+                        System.out.println(count);
+                        // 7.释放资源
+                        conn.close();
+                        stmt.close();
+                    &#125;
+        5.ResultSet
+            *ResultSet(结果集对象)作用：
+            1.封装了DQL查询语句的结果
+                ResultSet executeQuery(sql)：执行DQL 语句，返回ResultSet 对象
+                *获取查询结果：
+                    boolean next():
+                    (1)将光标从当前位置向前移动一行
+                    (2)判断当前行是否为有效执行
+                    返回值说明：
+                    true ： 有效航，当前行有数据
+                    false ： 无效行，当前行没有数据
+                    
+                    xxx getXxx(参数)：获取数据
+                    xxx : 数据类型；如： int getInt(参数) ；String getString(参数)
+                    参数:
+                    int ：列的编号，从1开开始
+                    String：列的名称
+        6.PreparedStatement
+            PrepardStatement作用:
+                *预编译SQL语句并执行：预防SQL注入问题
+            SQL注入
+                SQL注入是通过操作输入来修改事先定义好的SQL语句，用以达
+                到执行代码对服务器进行攻击的方法。
+            *1.获取 PreparedStatement 对象		
+                // SQL语句中的参数值，使用？占位符替代
+                    String sql = &quot;select * from user where username =? and password = ?&quot;;
+                // 通过Connection对象获取，并传入对应的sql语句
+                    PreparedStatement pstmt =conn.prepareStatement(sql);
+            *2.设置参数值			
+                PreparedStatement对象：setXxx(参数1，参数2)：给 ? 赋值
+                    Xxx：数据类型 ； 如 setInt (参数1，参数2)
+                    参数：
+                        参数1： ？的位置编号，从1 开始
+                        参数2： ？的值
+            *3.执行SQL语句
+                executeUpdate(); 执行DDL语句和DML语句
+                executeQuery(); 执行DQL语句
+                ==注意：==
+                    调用这两个方法时不需要传递SQL语句，因为获取SQL语
+                    句执行对象时已经对SQL语句进行预编译了。
+        7. 数据库连接池
+        数据库连接池是个容器，负责分配、管理数据库连接
+        (Connection)
+        它允许应用程序重复使用一个现有的数据库连接，而不是再
+        重新建立一个；
+        释放空闲时间超过最大空闲时间的数据库连接来避免因为没
+        有释放数据库连接而引起的数据库连接遗漏	
+        好处
+            资源重用
+            提升系统响应速度
+            避免数据库连接遗漏
+        * 标准接口：==DataSource==
+            Connection getConnection()
+            常见的数据库连接池
+                DBCP
+                C3P0
+                Druid
+            1.Driud使用
+                导入jar包 druid-1.1.12.jar
+                定义配置文件
+                加载配置文件
+                获取数据库连接池对象
+                获取连接
+        8.maven
+            Maven常用命令
+                compile : 编译
+                clean : 清理
+                test : 测试
+                package : 打包
+                install : 安装
+                
+            ****BrandTest:
+                
+            package pojo.exemple;
+            import com.alibaba.druid.pool.DruidDataSourceFactory;
+            import org.junit.Test;
+
+            import javax.sql.DataSource;
+            import java.io.FileInputStream;
+            import java.sql.Connection;
+            import java.sql.PreparedStatement;
+            import java.sql.ResultSet;
+            import java.util.ArrayList;
+            import java.util.List;
+            import java.util.Properties;
+
+            /**
+             * 品牌数据的增删改操作
+             */
+            public class BrandTest &#123;
+                /**
+                 * 查询所有
+                 * 1.SQL:select * from tb_brand
+                 * 2.参数:不用
+                 * 3.结果:List&lt;Brand&gt;
+                 */
+                @Test
+                public void testSelectAll() throws Exception &#123;
+                    //1.获取链接的Connection对象
+                    //3.加载配置文件
+                    Properties prop = new Properties();
+                    prop.load(new FileInputStream(&quot;/javaCODE/JDBC/JDBC_Demo/src/druid.properties&quot;));
+                    //4.获取连接池对象
+                    DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
+                    //5.获取对应的数据库链接
+                    Connection conn = dataSource.getConnection();
+
+                    //2.定义sql语句
+                    String sql = &quot;select * from tb_brand&quot;;
+                    //3.获取pstmt对象
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    //4.设置参数
+
+                    //5.执行SQL
+                    ResultSet rs = pstmt.executeQuery();
+
+                    //6.处理结果 List&lt;Brand&gt; 封装Brand对象。装载List集合
+                    Brand brand = null;
+                    List&lt;Brand&gt; brands = new ArrayList&lt;&gt;();
+                    while(rs.next())&#123;
+                        //获取数据
+                        int id = rs.getInt(&quot;id&quot;);
+                        String brandName = rs.getString(&quot;brand_name&quot;);
+                        String companyName = rs.getString(&quot;company_name&quot;);
+                        int ordered = rs.getInt(&quot;ordered&quot;);
+                        String description = rs.getString(&quot;description&quot;);
+                        int status = rs.getInt(&quot;status&quot;);
+                        //封装Brand对象
+                        brand = new Brand();
+                        brand.setId(id);
+                        brand.setBrandName(brandName);
+                        brand.setCompanyName(companyName);
+                        brand.setOrdered(ordered);
+                        brand.setDescription(description);
+                        brand.setStatus(status);
+                        //装载集合
+                        brands.add(brand);
+                    &#125;
+                    System.out.println(brands);
+                    //7.释放资源
+                    rs.close();
+                    pstmt.close();
+                    conn.close();
+
+                &#125;
+
+                /**
+                  * 添加
+                  * 1. SQL：insert into tb_brand(brand_name,company_name, ordered, description, status)values(?,?,?,?,?);
+                  * 2. 参数：需要，除了id之外的所有参数信息
+                  * 3. 结果：boolean
+                  */
+                @Test
+                public void testAdd() throws Exception &#123;
+
+                    //接收页面提交的参数
+                    String brandName = &quot;香飘飘&quot;;
+                    String companyName = &quot;香飘飘&quot;;
+                    int ordered = 1;
+                    String description = &quot;绕地球一圈&quot;;
+                    int status = 1;
+
+                    //1.获取链接的Connection对象
+                    //3.加载配置文件
+                    Properties prop = new Properties();
+                    prop.load(new FileInputStream(&quot;/javaCODE/JDBC/JDBC_Demo/src/druid.properties&quot;));
+                    //4.获取连接池对象
+                    DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
+                    //5.获取对应的数据库链接
+                    Connection conn = dataSource.getConnection();
+
+                    //2.定义sql语句
+                    String sql = &quot;insert into tb_brand(brand_name,company_name, ordered, description, status)values(?,?,?,?,?);&quot;;
+                    //3.获取pstmt对象
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    //4.设置参数
+                    pstmt.setString(1,brandName);
+                    pstmt.setString(2,companyName);
+                    pstmt.setInt(3,ordered);
+                    pstmt.setString(4,description);
+                    pstmt.setInt(5,status);
+                    //5.执行SQL
+                    int count = pstmt.executeUpdate();//影响的行数
+                    //6.处理结果
+                    System.out.println(count&gt;0);
+                    //7.释放资源
+                    pstmt.close();
+                    conn.close();
+                &#125;
+
+                /**
+                  * 修改
+                  * 1. SQL：
+                   update tb_brand
+                     set brand_name = ?,
+                     company_name= ?,
+                     ordered   = ?,
+                     description = ?,
+                     status   = ?
+                   where id = ?
+                  * 2. 参数：需要，所有数据
+                  * 3. 结果：boolean
+                  */
+                @Test
+                public void testUpdate() throws Exception &#123;
+
+                    //接收页面提交的参数
+                  String brandName = &quot;香飘飘&quot;;
+                  String companyName = &quot;香飘飘&quot;;
+                  int ordered = 1000;
+                  String description = &quot;绕地球三圈&quot;;
+                  int status = 1;
+                  int id = 4;
+
+                    //1.获取链接的Connection对象
+                    //3.加载配置文件
+                    Properties prop = new Properties();
+                    prop.load(new FileInputStream(&quot;/javaCODE/JDBC/JDBC_Demo/src/druid.properties&quot;));
+                    //4.获取连接池对象
+                    DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
+                    //5.获取对应的数据库链接
+                    Connection conn = dataSource.getConnection();
+
+                    //2.定义sql语句
+                    String sql = &quot;update tb_brand set brand_name = ?, company_name= ?, ordered = ?, description = ?,status = ? where id = ?&quot;;
+                    //3.获取pstmt对象
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    //4.设置参数
+                    pstmt.setString(1,brandName);
+                    pstmt.setString(2,companyName);
+                    pstmt.setInt(3,ordered);
+                    pstmt.setString(4,description);
+                    pstmt.setInt(5,status);
+                    pstmt.setInt(6,id);
+                    //5.执行SQL
+                    int count = pstmt.executeUpdate();//影响的行数
+                    //6.处理结果
+                    System.out.println(count&gt;0);
+                    //7.释放资源
+                    pstmt.close();
+                    conn.close();
+                &#125;
+
+                /**
+                  * 删除
+                  * 1. SQL：
+                       delete from tb_brand where id = ?
+                  * 2. 参数：需要，id
+                  * 3. 结果：boolean
+                  */
+                @Test
+                public void testDeleteById() throws Exception &#123;
+
+                    //接收页面提交的参数
+                    int id = 4;
+
+                    //1.获取链接的Connection对象
+                    //3.加载配置文件
+                    Properties prop = new Properties();
+                    prop.load(new FileInputStream(&quot;/javaCODE/JDBC/JDBC_Demo/src/druid.properties&quot;));
+                    //4.获取连接池对象
+                    DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
+                    //5.获取对应的数据库链接
+                    Connection conn = dataSource.getConnection();
+
+                    //2.定义sql语句
+                    String sql = &quot;delete from tb_brand where id = ?&quot;;
+                    //3.获取pstmt对象
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    //4.设置参数
+                    pstmt.setInt(1,id);
+                    //5.执行SQL
+                    int count = pstmt.executeUpdate();//影响的行数
+                    //6.处理结果
+                    System.out.println(count&gt;0);
+                    //7.释放资源
+                    pstmt.close();
+                    conn.close();
+                &#125;
+            &#125;
+            
+            ****Brand
+            package JDBC;
+</code></pre><p>import org.junit.Test;</p><p>import java.sql.Connection;<br>import java.sql.DriverManager;<br>import java.sql.SQLException;<br>import java.sql.Statement;</p><p>public class JDBC_Demo03_Statement {<br>&#x2F;**<br>* 执行对应的DML语句<br>* @throws Exception<br>*&#x2F;<br>@Test<br>public void testDML() throws Exception {<br>&#x2F;&#x2F; 1.注册驱动<br>Class.forName(“com.mysql.jdbc.Driver”);<br>&#x2F;&#x2F; 2.获取链接<br>String url &#x3D; “jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;hei?useSSL&#x3D;false”;<br>String username &#x3D; “root”;<br>String password &#x3D; “1234”;<br>Connection conn &#x3D; DriverManager.getConnection(url,username,password);<br>&#x2F;&#x2F; 3.定义sql<br>String sql &#x3D; “UPDATE account SET money &#x3D; 3000 WHERE id &#x3D; 1”;<br>&#x2F;&#x2F; 4.获取执行sql的对象 Statement<br>Statement stmt &#x3D; conn.createStatement();<br>&#x2F;&#x2F; 5.执行sql<br>int count &#x3D; stmt.executeUpdate(sql);&#x2F;&#x2F; 受影响的行数返回值<br>&#x2F;&#x2F; 6.处理结果<br>if(count&gt;0)<br>{<br>System.out.println(“修改成功<del>“);<br>}else{<br>System.out.println(“修改失败</del>“);<br>}</p><pre><code class="hljs">    // 7.释放资源
+    conn.close();
+    stmt.close();
+&#125;
+
+/**
+ * 执行对应的DDL语句
+ * @throws Exception
+ */
+@Test
+public void testDDL() throws Exception &#123;
+    // 1.注册驱动
+    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+    // 2.获取链接
+    String url = &quot;jdbc:mysql://127.0.0.1:3306/hei?useSSL=false&quot;;
+    String username = &quot;root&quot;;
+    String password = &quot;1234&quot;;
+    Connection conn = DriverManager.getConnection(url,username,password);
+    // 3.定义sql
+    String sql = &quot;Drop Database hei2&quot;;
+    // 4.获取执行sql的对象 Statement
+    Statement stmt = conn.createStatement();
+    // 5.执行sql
+    int count  = stmt.executeUpdate(sql);//执行DDL可能返回0
+</code></pre><p>&#x2F;&#x2F; &#x2F;&#x2F; 6.处理结果<br>&#x2F;&#x2F; if(count&gt;0)<br>&#x2F;&#x2F; {<br>&#x2F;&#x2F; System.out.println(“修改成功<del>“);<br>&#x2F;&#x2F; }else{<br>&#x2F;&#x2F; System.out.println(“修改失败</del>“);<br>&#x2F;&#x2F; }<br>System.out.println(count);<br>&#x2F;&#x2F; 7.释放资源<br>conn.close();<br>stmt.close();<br>}</p><p>}</p></div><hr><div><div class="post-metas my-3"></div><div class="license-box my-3"><div class="license-title"><div>Mysql_note</div><div>http://whoispower.cn/post/Mysql-note.html</div></div><div class="license-meta"><div class="license-meta-item"><div>作者</div><div>陈浩南</div></div><div class="license-meta-item license-meta-date"><div>发布于</div><div>2022年7月7日</div></div><div class="license-meta-item license-meta-date"><div>更新于</div><div>2022年7月7日</div></div><div class="license-meta-item"><div>许可协议</div><div><a target="_blank" href="https://creativecommons.org/licenses/by/4.0/"><span class="hint--top hint--rounded" aria-label="BY - 署名"><i class="iconfont icon-by"></i></span></a></div></div></div><div class="license-icon iconfont"></div></div><div class="post-prevnext my-3"><article class="post-prev col-6"></article><article class="post-next col-6"><a href="/post/English-Notes.html" title="英语笔记"><span class="hidden-mobile">英语笔记</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></article></div></div></article></div></div></div><div class="side-col d-none d-lg-block col-lg-2"><aside class="sidebar" style="margin-left:-1rem"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></aside></div></div></div><a id="scroll-top-button" aria-label="TOP" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div></main><footer><div class="footer-inner"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>陈好难啊💚チェン・ハオナン</span></a> <i class="iconfont icon-love"></i> <a href="whoispower.cn" target="_blank" rel="nofollow noopener"><span>Mr Wolf</span></a></div><div class="statistics"><span id="busuanzi_container_site_pv" style="display:none">总访问量 <span id="busuanzi_value_site_pv"></span> 次 </span><span id="busuanzi_container_site_uv" style="display:none">总访客数 <span id="busuanzi_value_site_uv"></span> 人</span></div></div></footer><script src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js"></script><link rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css"><script>NProgress.configure({showSpinner:!1,trickleSpeed:100}),NProgress.start(),window.addEventListener("load",function(){NProgress.done()})</script><script src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script><script src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js"></script><script src="/js/events.js"></script><script src="/js/plugins.js"></script><script src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js"></script><script>!function(t){var e=Fluid.plugins.typing,i=t.getElementById("subtitle");i&&e&&e(i.getAttribute("data-typed-text"))}((window,document))</script><script src="/js/img-lazyload.js"></script><script>Fluid.utils.createScript("https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js",function(){var t,o=jQuery("#toc");0!==o.length&&window.tocbot&&(t=jQuery("#board-ctn").offset().top,window.tocbot.init({tocSelector:"#toc-body",contentSelector:".markdown-body",headingSelector:CONFIG.toc.headingSelector||"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:CONFIG.toc.collapseDepth||0,scrollSmooth:!0,headingsOffset:-t}),0<o.find(".toc-list-item").length&&o.css("visibility","visible"))})</script><script src="https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js"></script><script>Fluid.plugins.codeWidget()</script><script>Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });</script><script>Fluid.utils.createScript("https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js",function(){Fluid.plugins.fancyBox()})</script><script>Fluid.plugins.imageCaption()</script><script src="/js/local-search.js"></script><script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/sakura.js"></script><script src="/js/boot.js"></script><noscript><div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div></noscript><script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script><script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script><canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:1;pointer-events:none"></canvas><script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script><script type="text/javascript" src="/js/fireworks.js"></script><script src="/js/backgroundize.js"></script></body>--><script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/piao.js"></script><script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/snow.js"></script></html>
