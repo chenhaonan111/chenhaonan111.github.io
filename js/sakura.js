@@ -1,3 +1,4 @@
+/*
 //樱花 sakura
 
 var stop, staticx;
@@ -219,3 +220,5 @@ function stopp() {
     startSakura();
   }
 }
+
+*/
