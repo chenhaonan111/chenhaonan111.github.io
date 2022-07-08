@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>安培没了</title>
+    <link href="/post/%E5%AE%89%E5%9F%B9%E6%B2%A1%E4%BA%86.html"/>
+    <url>/post/%E5%AE%89%E5%9F%B9%E6%B2%A1%E4%BA%86.html</url>
+    
+    <content type="html"><![CDATA[<div id="dplayer0" class="dplayer hexo-tag-dplayer-mark" style="margin-bottom: 20px;"></div><script>(function(){var player = new DPlayer({"container":document.getElementById("dplayer0"),"autoplay":true,"hotkey":true,"preload":"metadata","video":{"url":"img/Japan/a.mp4"}});window.dplayers||(window.dplayers=[]);window.dplayers.push(player);})()</script>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>XML note</title>
     <link href="/post/XML-note.html"/>
     <url>/post/XML-note.html</url>
